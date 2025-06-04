@@ -13,6 +13,8 @@ def init_db_conn(db_config: DBConfig) -> Engine:
         return connect_to_mysql(db_config.db_name, db_config.user_name, db_config.db_pwd, db_config.db_host, db_config.port)
     elif db_config.dialect.lower() == 'postgresql':
         return connect_to_pg(db_config.db_name, db_config.user_name, db_config.db_pwd, db_config.db_host, db_config.port)
+    elif db_config.dialect.lower() == 'kingbase':
+        return connect_to_kb(db_config.db_name, db_config.user_name, db_config.db_pwd, db_config.db_host, db_config.port)
     else:
         raise NotImplementedError
 
@@ -30,6 +32,10 @@ def connect_to_mysql(db_name, user_name, db_pwd, db_host, port) -> Engine:
 
 def connect_to_pg(db_name, user_name, db_pwd, db_host, port) -> Engine:
     db_engine = create_engine(f"postgresql+psycopg2://{user_name}:{db_pwd}@{db_host}:{port}/{db_name}")
+    return db_engine
+
+def connect_to_kb(db_name, user_name, db_pwd, db_host, port) -> Engine:
+    db_engine = create_engine(f"kingbase+ksycopg2://{user_name}:{db_pwd}@{db_host}:{port}/{db_name}")
     return db_engine
 
 
