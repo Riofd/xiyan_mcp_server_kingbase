@@ -15,7 +15,7 @@ class DBConfig:
     def __post_init__(self):
         if self.dialect == 'sqlite':
             self.db_path = self.db_path or 'book_1.sqlite'
-        elif self.dialect in ['mysql', 'postgresql']:
+        elif self.dialect in ['mysql', 'postgresql', 'kingbase']:
             self.db_name = self.db_name or 'default_db'
             self.user_name = quote_plus(self.user_name) or 'default_user'
             self.db_pwd = quote_plus(self.db_pwd) or 'default_password'
